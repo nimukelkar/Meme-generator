@@ -11,6 +11,11 @@ class MemeGenerator extends React.Component {
             allMemeImgs:[]
 
         }
+        this.handleChange=this.handleChange.bind(this)
+    }
+    handleChange(event){
+        const{name,value} = event.target;
+        this.setState({[name]:value});
     }
     componentDidMount(){   // Made an API call to get meme images.
         fetch("https://api.imgflip.com/get_memes")
@@ -24,7 +29,27 @@ class MemeGenerator extends React.Component {
     }
     render(){
         return(
+            <div>
             <h1>Meme Generator</h1>
+
+            <div>
+                <form className="meme-form">
+                    <input type="text" name="topText" placeholder="topText" value={this.state.topText} onChange={this.handleChange}/>
+                    <input type="text" name="bottomText" placeholder="bottonText" value={this.state.bottomText} onChange={this.handleChange}/>
+                    
+                    <button>GEN</button>
+                </form>
+
+            </div>
+            <div className="meme">
+                <img src={this.state.randomImg}/>
+                <h2 className="top">{this.state.topText}</h2>
+                <h2 className="bottom">{this.state.bottomText}</h2>
+
+            </div>
+
+            </div>
+            
         )
     }
 }
